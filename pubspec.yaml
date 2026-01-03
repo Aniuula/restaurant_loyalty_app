@@ -1,0 +1,32 @@
+name: restaurant_loyalty_app
+description: "Aplication for restaurant loyalty program using facial recognition."
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.2.3 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Ikony dla iOS
+  cupertino_icons: ^1.0.8
+
+  # Obsługa aparatu
+  camera: ^0.11.0
+
+  # Wykrywanie twarzy przez Google ML Kit
+  google_mlkit_face_detection: ^0.11.0
+
+  # Wysyłanie zdjęć do serwera Python (FastAPI)
+  http: ^1.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
