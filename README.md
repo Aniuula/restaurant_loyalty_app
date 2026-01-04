@@ -1,16 +1,32 @@
-# restaurant_loyalty_app
+# Restaurant Loyalty App (Face Scan)
 
-A new Flutter project.
+Flutter + FastAPI demo of a restaurant loyalty system:
+- Flutter captures a face photo, computes an embedding on-device (MobileFaceNet TFLite), and sends it to the backend.
+- FastAPI matches the embedding, increments visits, and grants a reward every 5 visits (free coffee).
 
-## Getting Started
+## Project structure
+- `lib/` – Flutter app
+- `assets/models/` – TFLite model (MobileFaceNet)
+- `restaurant_server/` – FastAPI backend (SQLite)
 
-This project is a starting point for a Flutter application.
+## Requirements
+- Flutter SDK (3.x)
+- Android Studio + Android Emulator (or a real Android device)
+- Python 3.10+ (recommended)
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 1) Backend (FastAPI)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Windows (PowerShell)
+```powershell
+cd restaurant_server
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+
+$env:EMBEDDING_DIM="192"
+$env:MATCH_THRESHOLD="0.35"
+$env:REWARD_EVERY="5"
+
+python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
