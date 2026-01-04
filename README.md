@@ -16,17 +16,3 @@ Flutter + FastAPI demo of a restaurant loyalty system:
 
 ---
 
-## 1) Backend (FastAPI)
-
-### Windows (PowerShell)
-```powershell
-cd restaurant_server
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-
-$env:EMBEDDING_DIM="192"
-$env:MATCH_THRESHOLD="0.35"
-$env:REWARD_EVERY="5"
-
-python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
