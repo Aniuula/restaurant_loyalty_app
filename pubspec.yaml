@@ -1,7 +1,6 @@
 name: restaurant_loyalty_app
 description: "Application for restaurant loyalty program using facial recognition."
 publish_to: "none"
-
 version: 1.0.0+1
 
 environment:
@@ -28,6 +27,9 @@ dependencies:
   # HTTP (JSON do FastAPI)
   http: ^1.2.2
 
+  # Do dźwięku 
+  audioplayers: ^5.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -37,5 +39,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  # Pamiętaj o dwóch spacjach wcięcia dla assets i kolejnych dwóch dla myślników
   assets:
     - assets/models/mobilefacenet.tflite
+    - assets/sounds/success.mp3

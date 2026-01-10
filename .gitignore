@@ -27,6 +27,12 @@ windows/flutter/ephemeral/
 Thumbs.db
 *.log
 
+# Baza danych i pliki tymczasowe (WAL mode)
+restaurant_server/*.sqlite3
+restaurant_server/*.sqlite3-wal
+restaurant_server/*.sqlite3-shm
+restaurant_server/*.db
+
 
 # 
 **/__pycache__/
