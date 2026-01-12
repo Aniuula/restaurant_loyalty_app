@@ -100,7 +100,7 @@ class _CustomersPageState extends State<CustomersPage> {
                           children: [
                             _statColumn("Darmowa kawa", "${c["visits_since_reward"]}/5"),
                             _statColumn("Wszystkie wizyty", "${c["visits_total"]}"),
-                            _statColumn("Ostatnia wizyta", _formatDate(c["last_visit_at"])),
+                            _statColumn("Ostatnia", _formatDate(c["last_visit_at"])),
                           ],
                         ),
                       ],

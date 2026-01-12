@@ -13,19 +13,18 @@ from pydantic import BaseModel, Field
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_FILE = os.path.join(APP_DIR, "loyalty.sqlite3")
 
-# Ustaw pod Twój model na telefonie
+
 EMBEDDING_DIM = int(os.getenv("EMBEDDING_DIM", "192"))
 
-# cosine distance = 1 - cosine_similarity; im mniejszy tym lepiej
+# cosine distance = 1 - cosine_similarity
 MATCH_THRESHOLD = float(os.getenv("MATCH_THRESHOLD", "0.35"))
 
-# Po ilu wizytach nagroda
+# nagroda
 REWARD_EVERY = int(os.getenv("REWARD_EVERY", "5"))
 
 app = FastAPI(title="Restaurant Loyalty (Face Embeddings)", version="1.1.0")
 
 
-# ---------- DB ----------
 def get_conn() -> sqlite3.Connection:
     conn = sqlite3.connect(DB_FILE, check_same_thread=False)
     conn.execute("PRAGMA journal_mode=WAL;")
@@ -71,20 +70,18 @@ init_db()
 ensure_schema()
 
 
-# ---------- Models ----------
 class EmbeddingPayload(BaseModel):
     embedding: List[float] = Field(..., description="Embedding wektora twarzy z telefonu")
     device_id: Optional[str] = None
 
 
 class EnrollPayload(BaseModel):
-    # Możesz przesyłać 1 embedding lub kilka (np. 3-5) i backend uśredni
     embeddings: List[List[float]] = Field(..., min_items=1)
     display_name: Optional[str] = None
 
 
 class ScanResponse(BaseModel):
-    status: str  # matched | not_found
+    status: str  
     state_label: Optional[str] = None  # "nowy klient" | "stały klient"
     customer_id: Optional[str] = None
     display_name: Optional[str] = None
@@ -105,7 +102,6 @@ class EnrollResponse(BaseModel):
     last_visit_at: Optional[str]
 
 
-# ---------- Vector utils ----------
 def to_vec(emb: List[float]) -> np.ndarray:
     v = np.asarray(emb, dtype=np.float32)
     if v.ndim != 1 or v.shape[0] != EMBEDDING_DIM:
@@ -165,7 +161,6 @@ def find_best_match(conn: sqlite3.Connection, query_vec: np.ndarray) -> Tuple[Op
     return best, float(best_dist)
 
 
-# ---------- Endpoints ----------
 @app.get("/health")
 def health():
     return {
